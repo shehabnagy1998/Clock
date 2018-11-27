@@ -1,0 +1,30 @@
+@mixin font-size($max, $min) {
+  font-size: $min;
+  @media(min-width: 991.98px) { font-size: $max;}
+}
+
+main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  @include font-size(6vw, 12.5vw);
+  font-weight: bold;
+}
+
+.seconds {
+  .progress {
+    height: 30px;
+  }
+
+  .colored {
+    background-color: #4b77f2;
+  }
+}
+
+.minute,
+.day {
+  @include font-size(5vw, 11vw);
+  font-weight: lighter;
+}

@@ -1,0 +1,26 @@
+﻿main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 12.5vw;
+  font-weight: bold; }
+  @media (min-width: 991.98px) {
+    main {
+      font-size: 6vw; } }
+
+.seconds .progress {
+  height: 30px; }
+
+.seconds .colored {
+  background-color: #4b77f2; }
+
+.minute,
+.day {
+  font-size: 11vw;
+  font-weight: lighter; }
+  @media (min-width: 991.98px) {
+    .minute,
+    .day {
+      font-size: 5vw; } }
