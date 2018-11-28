@@ -1,26 +1,20 @@
 ﻿main {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
-  font-size: 12.8vw;
+  font-size: 60px;
   font-weight: bold; }
-  @media (min-width: 991.98px) {
-    main {
-      font-size: 6vw; } }
+  main .hour-minute {
+    width: 235px;
+    margin: 0 auto; }
+  main .date-value {
+    width: 280px;
+    margin: 0 auto; }
 
-.seconds .progress {
+.progress {
   height: 30px; }
-
-.seconds .colored {
-  background-color: #4b77f2; }
+  .progress .colored {
+    background-color: #4b77f2; }
 
 .minute,
 .day {
-  font-size: 11.3vw;
+  font-size: 50px;
   font-weight: lighter; }
-  @media (min-width: 991.98px) {
-    .minute,
-    .day {
-      font-size: 5vw; } }

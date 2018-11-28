@@ -6,5 +6,13 @@
   {
     "outputFile": "src/app/clock/clock.component.css",
     "inputFile": "src/app/clock/clock.component.scss"
+  },
+  {
+    "outputFile": "src/app/timer/timer.component.css",
+    "inputFile": "src/app/timer/timer.component.scss"
+  },
+  {
+    "outputFile": "src/app/stop-watch/stop-watch.component.css",
+    "inputFile": "src/app/stop-watch/stop-watch.component.scss"
   }
 ]

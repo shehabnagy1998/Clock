@@ -1,0 +1,18 @@
+<main>
+  <article class="lables">
+    <label>H</label>
+    <label>M</label>
+    <label>S</label>
+  </article>
+  <article class="setTimer">
+    <input type="number" class="timerSetter hourSetter" [(ngModel)]="hor"/>
+    <span class="splitter"> - </span>
+    <input type="number" class="timerSetter minuteSetter" [(ngModel)]="min"/>
+    <span class="splitter"> - </span>
+    <input type="number" class="timerSetter secondSetter" [(ngModel)]="sec"/>
+  </article>
+  <article class="buttons">
+    <button class="button reset">Reset</button>
+    <button class="button changing">Start</button>
+  </article>
+</main>

@@ -3,21 +3,33 @@
   @media(min-width: 991.98px) { font-size: $max;}
 }
 
+@mixin width($max, $min) {
+  width: $min;
 
-main {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  @include font-size(6vw, 12.8vw);
-  font-weight: bold;
+  @media(min-width: 991.98px) {
+    width: $max;
+  }
 }
 
-.seconds {
-  .progress {
-    height: 30px;
+
+main {
+  text-align: center;
+  font-size: 60px;
+  font-weight: bold;
+
+  .hour-minute {
+    width: 235px;
+    margin: 0 auto;
   }
+
+  .date-value {
+    width: 280px;
+    margin: 0 auto;
+  }
+}
+
+.progress {
+  height: 30px;
 
   .colored {
     background-color: #4b77f2;
@@ -26,6 +38,6 @@ main {
 
 .minute,
 .day {
-  @include font-size(5vw, 11.3vw);
+  font-size: 50px;
   font-weight: lighter;
 }

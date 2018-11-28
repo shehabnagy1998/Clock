@@ -8,20 +8,37 @@ $navColor: #4b77f2;
   }
 }
 
+@mixin margin-bottom($max, $min) {
+  margin-bottom: $min;
+
+  @media(min-width: 991.98px) {
+    margin-bottom: $max;
+  }
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+}
+
 .navbar {
   background: $navColor;
   border-radius: 0px 0px 10px 10px;
+  margin: 0 auto;
+  @include margin-bottom(14vh, 17vh);
+  width: 85%;
 }
 
 .navbar-brand {
   color: #fff;
-  @include font-size(3.5vw, 7vw);
+  @include font-size(40px, 30px);
   font-weight: bold;
 }
 
 .navbar-toggler {
   color: #fff;
-  /*font-size: 5vw;*/
 }
 
 .collapse {
@@ -37,7 +54,7 @@ $navColor: #4b77f2;
 
   .nav-link {
     color: #fff - #222;
-    @include font-size(1.7vw, 4vw);
+    @include font-size(22px, 17px);
 
     &:not(.active):hover {
       color: #fff;
@@ -49,3 +66,20 @@ $navColor: #4b77f2;
     }
   }
 }
+
+.foot {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  background: $navColor;
+  width: 85%;
+  color: #fff;
+  padding: 10px;
+  @include font-size(15px, 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px 10px 0 0;
+}
+
+.main {position: relative;}
+
