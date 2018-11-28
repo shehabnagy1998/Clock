@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-clock',
@@ -8,9 +10,12 @@ import * as $ from 'jquery';
 })
 export class ClockComponent implements OnInit {
 
-  constructor() { }
+  constructor(private title: Title, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.route.data.subscribe(data => this.title.setTitle(data['title']));
+
     (function () {
 
       var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -20,9 +25,9 @@ export class ClockComponent implements OnInit {
           hour = hour - 12;
           if (hour <= 0)
             hour = 1;
-          return `Pm ${check(hour)} : `;
+          return `Pm ${hour} : `;
         }
-        return `Am ${check(hour)} : `;
+        return `Am ${hour} : `;
       };
 
       let check = (val) => {
@@ -39,7 +44,7 @@ export class ClockComponent implements OnInit {
         $('.second').text(check(date.getSeconds()));
         $('.progress-bar').css({ width: `${(date.getSeconds() / 60) * 100}%`});
         $('.month').text(months[date.getMonth()]);
-        $('.day').text(` ${check(date.getDate())}, `);
+        $('.day').text(` ${date.getDate()}, `);
         $('.year').text(date.getFullYear());
       }, 1000);
     }());

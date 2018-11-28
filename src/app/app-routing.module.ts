@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ClockComponent } from './clock/clock.component';
 
 const routes: Routes = [
-  { path: '', component: ClockComponent },
-  { path: 'clock', component: ClockComponent },
+  { path: '', redirectTo: 'clock', pathMatch: 'full' },
+  { path: 'clock', component: ClockComponent, data: {title: "Clock Now"} },
 ];
 
 @NgModule({
