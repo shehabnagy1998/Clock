@@ -27,9 +27,8 @@ export class StopWatchComponent implements OnInit {
   }
 
   reset = () => {
-    if (this.sub) {
+    if (this.sub)
       this.sub.unsubscribe();
-    }
     this.hor = 0;
     this.min = 0;
     this.sec = 0;
@@ -48,7 +47,8 @@ export class StopWatchComponent implements OnInit {
     } else {
       e.target.innerText = 'Start';
       this.render.setStyle(document.getElementsByClassName('overlay')[0], 'animation', 'none');
-      this.sub.unsubscribe();
+      if (this.sub)
+        this.sub.unsubscribe();
     }
   };
 

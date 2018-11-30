@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import * as $ from 'jquery';
-import { parse } from 'querystring';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-timer',
@@ -12,99 +11,71 @@ import { parse } from 'querystring';
 })
 export class TimerComponent implements OnInit {
 
-  constructor(private title: Title, private route: ActivatedRoute) { }
+  @ViewChild('timer') btn: ElementRef;
+
+  constructor(private title: Title, private route: ActivatedRoute, private rinder: Renderer2) { }
 
   ngOnInit() {
     this.route.data.subscribe(t => this.title.setTitle(t['title']));
-
-    (function () {
-      var hor = $('.hourSetter'),
-        min = $('.minuteSetter'),
-        sec = $('.secondSetter'),
-        change = $('.changing'),
-        over = $('.overlay');
-
-      min.on('change', function () {
-        if (parseInt($(this).val()) >= 60) {
-          $(this).val('60');
-        } else if (parseInt($(this).val()) <= 0) {
-          $(this).val('0');
-        }
-      });
-
-      sec.on('change', function () {
-        if (parseInt($(this).val()) >= 60) {
-          $(this).val('60');
-        } else if (parseInt($(this).val()) <= 0) {
-          $(this).val('0');
-        }
-      });
-
-      $(document).on('click', '.reset', function() {
-        hor.val('0');
-        min.val('0');
-        sec.val('0');
-        change.text('Start');
-        window.clearInterval(inter);
-        over.css({ 'backgroundColor': 'rgb(221, 221, 221)' });
-      });
-
-      function changingColor() {
-        if (over.css('backgroundColor') === "rgb(221, 221, 221)")
-          over.css({ 'backgroundColor': 'rgb(255, 255, 255)' });
-        else if (over.css('backgroundColor') === "rgb(255, 255, 255)")
-          over.css({ 'backgroundColor': 'rgb(170, 170, 170)' });
-        else if (over.css('backgroundColor') === "rgb(170, 170, 170)")
-          over.css({ 'backgroundColor': 'rgb(255, 255, 255)' });
-
-      };
-
-      var inter;
-      var snd = new Audio('assets/beep.wav');
-      $(document).on('click', '.changing', function () {
-     
-        if (change.text() == 'Start') {
-          if (hor.val() && min.val() && sec.val()) {
-            change.text('Pause');
-            inter = window.setInterval(function () {
-              if (sec.val() == 0) {
-                if (min.val() == 0) {
-                  if (hor.val() == 0) {
-                    console.log('complete');
-                    changingColor();
-                    window.navigator.vibrate(500);
-                    snd.play();
-                    
-                  } else {
-                    hor.val(hor.val() - 1);
-                    min.val(59);
-                  }
-                } else {
-                  min.val(min.val() - 1);
-                  sec.val(59);
-                }
-              } else {
-                sec.val(sec.val() - 1);
-              }
-            }, 1000);
-          } else {
-            hor.val(0);
-            min.val(0);
-            sec.val(0);
-          }
-        }
-
-        else {
-          change.text('Start');
-          window.clearInterval(inter);
-          over.css({ 'backgroundColor': 'rgb(221, 221, 221)' });
-        }
-      });
-    }());
   }
 
   sec = 0;
   min = 0;
   hor = 0;
+  timeInter = interval(1000);
+  sub;
+  over: Element = document.getElementsByClassName('overlay')[0];
+  flag = true;
+
+  resetTimer = () => {
+    this.btn.nativeElement.innerText = 'Start';
+    this.rinder.setStyle(this.over, 'backgroundColor', '#ddd');
+    this.hor = 0;
+    this.min = 0;
+    this.sec = 0;
+    if (this.sub)
+      this.sub.unsubscribe();
+  };
+
+  startTimer = () => {
+    if (this.btn.nativeElement.innerText === 'Start') {
+      this.btn.nativeElement.innerText = 'Pause';
+      this.sub = this.timeInter.subscribe(d => this.decreas());
+    } else {
+      this.btn.nativeElement.innerText = 'Start';
+      if (this.sub)
+        this.sub.unsubscribe();
+    }
+  };
+
+  decreas = () => {
+    if (this.sec <= 0) {
+      if (this.min <= 0) {
+        if (this.hor <= 0) {
+          new Audio('assets/beep.wav').play();
+          navigator.vibrate(300);
+          this.changeColor();
+        } else {
+          this.hor--;
+          this.min = 59;
+        }
+      } else {
+        this.min--;
+        this.sec = 59;
+      }
+    } else {
+      this.sec--; 
+    }
+  };
+
+  changeColor = () => {
+    if (this.flag) {
+      this.rinder.setStyle(this.over, 'backgroundColor', '#fff');
+      this.flag = !this.flag;
+    } else {
+      this.rinder.setStyle(this.over, 'backgroundColor', '#ddd');
+      this.flag = !this.flag;
+    }
+  };
 
 }
